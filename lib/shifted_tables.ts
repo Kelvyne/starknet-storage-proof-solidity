@@ -20,6 +20,12 @@ export function pedersen(aS: string, bS: string) {
   let result = precomputes[0][buffer[0]];
   for (let i = 1; i < buffer.length; i++) {
     const point = precomputes[i][buffer[i]];
+    console.log(
+      i,
+      buffer[i].toString(),
+      point.getX().toString(10),
+      point.getY().toString(10)
+    );
     result = result.add(point);
   }
 

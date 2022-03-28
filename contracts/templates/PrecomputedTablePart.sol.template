@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
+
+library PrecomputedTable__I__x__J__ {
+  function get(uint8 n) public pure returns (uint256 x, uint256 y) {
+    uint256[] memory table = new uint256[](256);
+
+    // __HERE__
+
+    x = table[n * 2];
+    y = table[n * 2 + 1];
+  }
+}
