@@ -5,7 +5,7 @@ import "./EllipticCurve.sol";
 import "hardhat/console.sol";
 
 interface PrecomputedTable {
-  function get(uint8 n) external pure returns(uint256 x, uint256 y);
+  function get(uint8 n) external view returns(uint256 x, uint256 y);
 }
 
 contract PedersenHash {
@@ -17,7 +17,7 @@ contract PedersenHash {
     tables = _tables;
   }
 
-  function hash(uint256 a, uint256 b) external view returns (uint256) {
+  function hash(uint256 a, uint256 b) public view returns (uint256) {
     require(a < PRIME && b < PRIME, "invalid input");
     bytes memory input = new bytes(64);
 
@@ -28,7 +28,6 @@ contract PedersenHash {
 
     for (uint i = 1; i < 64; ++i) {
       (uint256 bX, uint256 bY) = tables[i].get(uint8(input[i]));
-      //(aX, aY, aZ) = EllipticCurve.jacAdd(aX, aY, aZ, bX, bY, 1, PRIME);
 
       assembly {
         // Set (aX, aY, aZ) to be the sum of the EC points (aX, aY, aZ) and (bX, bY, 1).
