@@ -12,8 +12,15 @@ contract PrecomputedTableState {
     }
   }
 
-  function get(uint8 n) external view returns (uint256 x, uint256 y) {
-    x = points[(uint256(n) * 2)];
-    y = points[(uint256(n) * 2) + 1];
+  function get(bytes memory input, uint256 rowSize, uint256 inputLen) external view returns (uint256[] memory output) {
+    output = new uint256[](2 * inputLen / 64);
+    for (uint offset = 0; offset < inputLen; offset += 64) {
+      console.log(offset);
+      uint256 n = uint256(uint8(input[offset]));
+      uint256 k = offset / rowSize;
+      output[2 * k] = points[(n * 2)];
+      output[2 * k + 1] = points[(n * 2) + 1];
+    }
+    return output;
   }
 }
