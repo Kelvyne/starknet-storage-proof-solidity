@@ -4,10 +4,6 @@ pragma solidity ^0.8.0;
 import "./EllipticCurve.sol";
 import "hardhat/console.sol";
 
-interface PrecomputedTable {
-  function get(bytes memory n) external pure returns(uint256[] memory);
-}
-
 contract PedersenHash {
   uint256 private constant PRIME = 0x800000000000011000000000000000000000000000000000000000000000001;
 

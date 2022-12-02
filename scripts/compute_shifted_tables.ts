@@ -13,22 +13,33 @@ function serializePoint(point: any) {
 }
 
 function parsePoint(point: string[]) {
-  const x = new BN(point[0] ?? "0", 16);
-  const y = new BN(point[1] ?? "0", 16);
+  if (!point[0] && !point[1]) return null;
+
+  const x = new BN(point[0], 16);
+  const y = new BN(point[1], 16);
   return starkEc.curve.point(x, y);
 }
 
 const firstShift = shiftPoint.mul(new BN(2).pow(new BN(63)));
 function shiftFirst(point: string[]) {
-  return parsePoint(point).add(firstShift);
+  const p = parsePoint(point);
+  if (p) return parsePoint(point).add(firstShift);
+  return firstShift;
 }
 
 function shiftOthers(k: number) {
   const kShift = shiftPoint.neg().mul(new BN(2).pow(new BN(63 - k)));
-  return (point: string[]) => parsePoint(point).add(kShift);
+  return (point: string[]) => {
+    const p = parsePoint(point);
+    if (p) return p.add(kShift);
+    return kShift;
+  };
 }
 
 async function main() {
+  console.log("firstShift", firstShift.getX().toString(16));
+  console.log(tables[0]);
+
   const shiftedTables = [
     (tables[0] as any).map(shiftFirst),
     ...tables

@@ -46,7 +46,9 @@ export function pedersen(aS: string, bS: string) {
   let result = shiftPoint;
   for (let i = 0; i < buffer.length; i++) {
     const point = precomputes[i][buffer[i]];
-    result = result.add(point);
+    if (buffer[i] > 0) {
+      result = result.add(point);
+    }
   }
 
   return result.getX().toString(16);
