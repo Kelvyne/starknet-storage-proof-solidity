@@ -1,0 +1,210 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "contract_proof": [
+      {
+        "Binary": {
+          "left_hash": "0x2c6603bd0685b54652dc1d0380e66735f4063bf66947a9a565f29aea9956a09",
+          "right_hash": "0x42db23bc6f534d07441cf1497a74824f43af29ec2f635b3f3caa1b814b1448b"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x69bf297540461a556e95b9e92f76a626f4c2720bb5c0afdd6c56c53b3ac099d",
+          "right_hash": "0xab6cf5be06700ed59caf092ffc85c34cd196c1a0f70905e316b20303752a0f"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x3fc06eecbf420c37fa1ad077d0443ef7bd357f3e77ed622362e18328d83fe32",
+          "right_hash": "0x21bf9ed0310476997c7adb2d1f7f108b087fee8355ebff46e559ae78da2f237"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x7570c06cc068168079f7c4c6cf617b82789a358c884ab38a307b33b8e39c786",
+          "right_hash": "0x56e54465b6646eb88389ddd7609d4352c7dedcd81639e0d8a23b7a63295e545"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x5978444ccad2008b83a0490713d1a28beb63d666c53d3a30fd12582254c8c92",
+          "right_hash": "0x50969e54e827975f66db5d341748a6d92161eaa0bd84edcab680bb42704370"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x11d55908741c34a34b0bb68a1502330ebd065ea09a544a28226a7a894453878",
+          "right_hash": "0xdbff188e6ea141add096e46ff25aa6ded8c68fef4cec9a401501ffbe25cfda"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x7e6bec5368cd837e31a6492e22e261fa7d06ed5246df60d02e22f7a7d5f7dd",
+          "right_hash": "0x3843e9242b76d1566dd7da45a80dc1d36fedd0e807b621f9b94733000f955fb"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x2618d5fd7bd2354ae4502fa929444ba4005f803f10e10cf876e32b2be750cb7",
+          "right_hash": "0x1f76e5eee6e34dc3fd1a58d2957ccc0418305ce572c2579b1f5ff68fe9b55ca"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x23eabcc50ae6813f02b01d6ffc269664f82bc0cb00936fe7ece9c7be30347ee",
+          "right_hash": "0x17580be6b88e091055ac7a7091fe71851368d8e10d87ae3c7e44eb1c9d698db"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x6d9397b57e96a8b4275e59ad82d9f265f276136c2851ece495254a9f8241ae1",
+          "right_hash": "0x467a203c99296d0f708436c7e4d611dd16f1194eae45fb8a2e7f32e5d24cb06"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x39bfb3a9e38a37f4ad9bb112d1a7ffcf48c21030211a5d56066d64a22e81bd5",
+          "right_hash": "0x50384ebbd810c05eca0b96beeaff9664664e21f04df43cbbcefef2a6c6b107d"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x164e330894e8c33f5b942e9477d01ad4be68b5de573409a6868770473880b8",
+          "right_hash": "0x4123e621501cad57a84f59d565b85e5ef3521bc05ad479685cdfcbd27ac0635"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x15682b53a2a5ebaf16c620d4d7c57000eef55db2db6475376002962bf84fff5",
+          "right_hash": "0x37050f6894a92c59b7163d11a302592beecaf3172473c1b4240ef67e266272b"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x25dff589e2b917ad117676f4a2fdab4c2e7981d978ba29feba89927d25d0c56",
+          "right_hash": "0x4fae3d944e44269d833d7cb1b15c1977f2c8c46d22b8dce937f7fb0d223b013"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x43152849fab2c1a6f95444795f0de43b872e970c9638c784db525e8698f89d4",
+          "right_hash": "0x4cfbef8f7e2199f23068121619c37ec658c4fb372945a51626b82712162c159"
+        }
+      },
+      {
+        "Edge": {
+          "path": {
+            "head": 0,
+            "bits": 1,
+            "data": [
+              0
+            ]
+          },
+          "child_hash": "0x698eae3bc25cf1081201dc235494c7a8e91517d60524e3d4804d4d7d30d90dd"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x71a4100c75f1124d26a090bb46fc0b6205f18a37a619762e14fb4eebf433017",
+          "right_hash": "0x4f7cb2454f400700710e161980c48207112364457e9d6459426aea554ea1dc"
+        }
+      },
+      {
+        "Edge": {
+          "path": {
+            "head": 0,
+            "bits": 234,
+            "data": [
+              36,
+              121,
+              180,
+              77,
+              32,
+              126,
+              124,
+              105,
+              207,
+              77,
+              242,
+              215,
+              33,
+              72,
+              185,
+              191,
+              188,
+              129,
+              43,
+              213,
+              219,
+              56,
+              232,
+              98,
+              220,
+              156,
+              153,
+              195,
+              46,
+              192
+            ]
+          },
+          "child_hash": "0x196033e5114b9ee8a186903f4a4c56971024d6f45d35355626e3a81f95619cb"
+        }
+      }
+    ],
+    "contract_data": {
+      "class_hash": "0x2c3348ad109f7f3967df6494b3c48741d61675d9a7915b265aa7101a631dc33",
+      "nonce": "0x0",
+      "root": "0x2a9ef0c91cf1100be8c960f8fb9f9af79b9dce3d516fd77fa89cb891195a62f",
+      "contract_state_hash_version": "0x0",
+      "storage_proofs": [
+        [
+          {
+            "Edge": {
+              "path": {
+                "head": 0,
+                "bits": 251,
+                "data": [
+                  57,
+                  152,
+                  19,
+                  145,
+                  67,
+                  50,
+                  145,
+                  192,
+                  145,
+                  188,
+                  245,
+                  186,
+                  210,
+                  82,
+                  177,
+                  50,
+                  139,
+                  196,
+                  190,
+                  68,
+                  11,
+                  56,
+                  230,
+                  139,
+                  85,
+                  239,
+                  6,
+                  227,
+                  17,
+                  177,
+                  160,
+                  160
+                ]
+              },
+              "child_hash": "0x6dd91e3d3dbb267fe05745d84ff9e3193a3cb9cb08c1a820a6d02e4791e9da1"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "id": 1
+}

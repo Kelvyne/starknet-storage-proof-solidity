@@ -1,0 +1,221 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "contract_proof": [
+      {
+        "Binary": {
+          "left_hash": "0x16fc15d231ea3afb1890f6b6f5ee7437a6cf54e5bd4d9900f46ccf1f155b65d",
+          "right_hash": "0x24a29e70b8df7e6db01fbd0193c6b31e2de714fd380feac015ffaa0b9b6b5ab"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x17c0e35af5d8e5a6440c82ee69f6e7d4bd72ffef221546e7af02f8ed560f10c",
+          "right_hash": "0x7fe143164e38edc6d399da65e7e78f15c9f1862ef4c1b5ec637f9aef70b54c5"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x76ce5532909934beee7d1bc808151e60fc01fcceb03a19865d29dd53dc7298",
+          "right_hash": "0x20a41d7c9d48e93ee914fc45fad5f62419fcac73c5794e0baaac7eb5430b144"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x1ccdeceb3256085ceb52acd4ed33d954d78e2eb3961517a01aea47eb098aa73",
+          "right_hash": "0x157378db61d723f233b6eeec3fccdb50c32bfd56cc04486b727797a99df3dec"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x5161f2bad71b84346adfc561780cc9169dcebef369013556ea66f5c219ebabb",
+          "right_hash": "0x3aa51386927fa3da3e4adb063e1b4637cb7deccefec84752c251272a8c83cf"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x762b2ea48969175756c289c5d224c2c71d7cb4d97176b0b8bb3affd0def4960",
+          "right_hash": "0x2047ce5ff191c46202b9f114114feb7d81561e47179d425c5ad022d0c578f7c"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x1722a56958b73665e7a17ad95259214ef7939bc391b577c064ab826b0621aa9",
+          "right_hash": "0x7db106fa2b0a3ba3387ebc5a8d3cf16aaa284330b9ca650b5418e20f50696c4"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x4c727ee3cb12505adf9d95c70944a8a9df68a883653d378969cc4ea63d1a62b",
+          "right_hash": "0x5c6f80468b19f72bc99b52c5d6bd9aab090630dcfbed926f6c6260f4a020047"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x11b71654946341b04cecf6314fb9278b20fee4930f21eb0d74fb762bdee25ae",
+          "right_hash": "0x1739119124d29fc346ae067da7dc491239e5e111732e8a43815bb20e2eff60c"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x6d80c60acf4d655ee7b73897679026dde640a5f80d99569f1073d45e47559ac",
+          "right_hash": "0x72439b3839f06ca6ad606d6d045eab3585c79006e09353a246bac1d4f60e95c"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x48052de7738f86ad4e6d794bfaaf57470ff2e38a026d215bcb7f8e699a58694",
+          "right_hash": "0x4f68b34233667749a96af9d6ddabb6054fc3d5171923b48cd20cb85e54f1e71"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x70ddb6293e1e3c47911e4faec08010b398270e7da9eb8bf89bd008052a2a8bd",
+          "right_hash": "0x41765ef6c2f239aedd910d57c68bc059858670adecc89ba3c6b01d73c78c89c"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x4e0584e755b67a0e965ddeeb38716ac43ab02df8da1231185ba85f40310ebf2",
+          "right_hash": "0xf67404ac7b23fa1ed809e0651f6fbf4626192886d858de79065610af8b59d3"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x7fe6127e92c7d8274eb5bfd8ceba3feb61410e39930475b1eb2cb3d9e28d6f6",
+          "right_hash": "0x65e7032c0c7b995623fdccb02deb816d88e9b879b6bf98a1c5faaec1ac7ca57"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x72df8f20a826fe23e1be50d1f0951e17931904da52417dd15b955c6c9cc0461",
+          "right_hash": "0x2e98b76d0198ad6817866adf6dd4c7ba81417c0c69952fd5b151227df2835fb"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x23f3953540f3020b4b3e62cfce4d83113d241d6cb40b49aeb2ba88e12d73b1d",
+          "right_hash": "0xe5d746e0d9730e3b9a78f2ed5ac5e908eafc38494f5e4150f5555707aa1d29"
+        }
+      },
+      {
+        "Binary": {
+          "left_hash": "0x2dba1b40f103848b95845bbd86c97a0cac62fc09ca80196b975a52f3a3871e5",
+          "right_hash": "0x7816c94a48ae9aead6ec31ef312023ca69bb1dcf4c92b518111abc7cc5c2dd"
+        }
+      },
+      {
+        "Edge": {
+          "path": {
+            "head": 0,
+            "bits": 234,
+            "data": [
+              191,
+              97,
+              250,
+              252,
+              101,
+              246,
+              50,
+              246,
+              116,
+              75,
+              54,
+              195,
+              191,
+              93,
+              220,
+              139,
+              152,
+              100,
+              8,
+              244,
+              7,
+              92,
+              194,
+              198,
+              107,
+              178,
+              136,
+              223,
+              55,
+              64
+            ]
+          },
+          "child_hash": "0x7895de5a986271dbcb578089f941b75aba75b532608be647e9499a042168886"
+        }
+      }
+    ],
+    "contract_data": {
+      "class_hash": "0x71c3c99f5cf76fc19945d4b8b7d34c7c5528f22730d56192b50c6bbfd338a64",
+      "nonce": "0x0",
+      "root": "0xd3ceb65b0c14a0573e47b6f371b23e081d308eb87328ef79a1134901fdb78a",
+      "contract_state_hash_version": "0x0",
+      "storage_proofs": [
+        [
+          {
+            "Edge": {
+              "path": {
+                "head": 0,
+                "bits": 2,
+                "data": [
+                  0
+                ]
+              },
+              "child_hash": "0x4e28634d0124a2304d99d5e0d6b0314b88185350fa541f03395cbdf79a4558d"
+            }
+          },
+          {
+            "Binary": {
+              "left_hash": "0x678e2c35bf3030a7b7f0055b7093d137653324d7c4ce9e70ed3a010de8bee17",
+              "right_hash": "0x4ae38b3a8e62849318719fa53e177b9e8193b8417d049abca5c08d25c0f4e1"
+            }
+          },
+          {
+            "Edge": {
+              "path": {
+                "head": 0,
+                "bits": 248,
+                "data": [
+                  249,
+                  32,
+                  87,
+                  27,
+                  159,
+                  133,
+                  189,
+                  217,
+                  42,
+                  134,
+                  124,
+                  253,
+                  199,
+                  51,
+                  25,
+                  208,
+                  248,
+                  131,
+                  111,
+                  14,
+                  105,
+                  224,
+                  110,
+                  76,
+                  85,
+                  102,
+                  182,
+                  32,
+                  63,
+                  117,
+                  204
+                ]
+              },
+              "child_hash": "0x90aa7a9203bff78bfb24f0753c180a33d4bad95b1f4f510b36b00993815704"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "id": 1
+}
