@@ -1,13 +1,19 @@
 {
   "name": "starknet-storage-proof-solidity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "license": "MIT",
   "files": [
     " contracts/*.sol"
   ],
   "keywords": [
-    "ethereum", "starknet", "storage", "proof", "pedersen", "hash", "solidity"
+    "ethereum",
+    "starknet",
+    "storage",
+    "proof",
+    "pedersen",
+    "hash",
+    "solidity"
   ],
   "dependencies": {
     "@types/elliptic": "^6.4.14",
