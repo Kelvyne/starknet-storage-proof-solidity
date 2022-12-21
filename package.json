@@ -1,14 +1,24 @@
 {
-  "name": "verifier",
-  "version": "1.0.0",
+  "name": "starknet-storage-proof-solidity",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "files": [
+    " contracts/*.sol"
+  ],
+  "keywords": [
+    "ethereum", "starknet", "storage", "proof", "pedersen", "hash", "solidity"
+  ],
   "dependencies": {
     "@types/elliptic": "^6.4.14",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
     "hardhat": "^2.8.3",
     "hash.js": "^1.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kelvyne/starknet-storage-proof-solidity.git"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.0",
