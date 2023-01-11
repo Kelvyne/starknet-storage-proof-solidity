@@ -103,7 +103,7 @@ export function encodeProof(
   contractProof: _Node[],
   storageProof: _Node[],
   options: EncodeOptions = {}
-): EncodedNode[] {
+): string[] {
   const cp = _parseProof(contractProof);
   const sp = _parseProof(storageProof);
 
@@ -128,7 +128,7 @@ export function encodeProof(
     _encodeNode(NodeType.ContractNonceHash, 0, [contractHash, contractNonce]),
     _encodeNode(NodeType.ContractHash, 0, [contractClassHash, contractRoot]),
     ...storage,
-  ];
+  ].map(encoded => encoded.header + encoded.proof.slice(2));
 }
 
 function _encodeTree(nodes: Node[]): EncodedNode[] {

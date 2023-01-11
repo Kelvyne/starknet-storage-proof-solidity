@@ -198,7 +198,7 @@ describe("PedersenHash", () => {
 
         const result = await pedersenHash.hash(input);
         expect(result.length).to.equal(testCases.length);
-        result.forEach((v, i) => {
+        result.forEach((v: any, i: any) => {
           expect(v).to.equal(ethers.BigNumber.from(`0x${testCases[i].expected}`));
         });
       });

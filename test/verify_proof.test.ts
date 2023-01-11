@@ -38,15 +38,15 @@ describe("VerifyProof", () => {
       new Array(64).fill(0).map(async (_, k) => {
         const generatedPath = path.join(__dirname, "..", "generated");
 
-        const bytecodePath = path.join(generatedPath, `${k}.bytecode`);
+        const bytecodePath = path.join(generatedPath, `verifier_${k}.bytecode`);
         const bytecode = fs.readFileSync(bytecodePath);
-        const ContractCodePrecomputed = await ethers.getContractFactory(
-          "ContractCodePrecomputed"
+        const VerifierContractCodePrecomputed = await ethers.getContractFactory(
+          "VerifierContractCodePrecomputed"
         );
         const factory = new ethers.ContractFactory(
-          ContractCodePrecomputed.interface,
+          VerifierContractCodePrecomputed.interface,
           bytecode.toString(),
-          ContractCodePrecomputed.signer
+          VerifierContractCodePrecomputed.signer
         );
 
         return factory.deploy();
@@ -75,10 +75,9 @@ describe("VerifyProof", () => {
           contractProof,
           storageProof
         );
+
         const encodedProof =
-          "0x" + encoded.map((v) => v.proof.slice(2)).join("");
-        const encodedHeaders =
-          "0x" + encoded.map((v) => v.header.slice(2)).join("");
+          "0x" + encoded.map((v) => v.slice(2)).join("");
 
         const context = {
           stateRoot: root,
@@ -88,7 +87,7 @@ describe("VerifyProof", () => {
           slotValue: storageValue,
         };
 
-        await contract.verify(context, encodedProof, encodedHeaders);
+        await contract.verify(context, encodedProof);
       });
 
       it("should verify proof off-chain", async () => {

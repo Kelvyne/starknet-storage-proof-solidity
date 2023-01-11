@@ -29,13 +29,12 @@ contract StorageProof {
 
   function verify(
     VerifyContext calldata context,
-    bytes memory proof,
-    bytes memory headers
+    bytes memory proof
   ) external {
-    if (proof.length % 64 != 0) revert InvalidProofLength();
+    if (proof.length % 66 != 0) revert InvalidProofLength();
 
-    uint256 steps = proof.length / 64;
-    uint256[] memory precomputes = new uint256[](2 * proof.length);
+    uint256 steps = proof.length / 66;
+    uint256[] memory precomputes = new uint256[](2 * steps * 64);
 
     for (uint256 i = 0; i < 64; i++) {
       assembly {
@@ -63,8 +62,8 @@ contract StorageProof {
         {
           uint256 a; uint256 b;
           assembly {
-            a := mload(add(proof, add(mul(k, 64), 32)))
-            b := mload(add(proof, add(mul(k, 64), 64)))
+            a := mload(add(proof, add(mul(k, 66), 34)))
+            b := mload(add(proof, add(mul(k, 66), 66)))
           }
           require(a < PRIME && b < PRIME, "size");
         }
@@ -129,40 +128,40 @@ contract StorageProof {
 
           // For edge nodes, we need to add the edgth path length to the hash before checking
           // I'm sure there is a more efficient way to do this
-          if (uint8(headers[2 * k]) == 2) {
-            hash = addmod(hash, uint8(headers[2 * k + 1]), PRIME);
+          if (uint8(proof[66 * k]) == 2) {
+            hash = addmod(hash, uint8(proof[66 * k + 1]), PRIME);
           }
           if (expected != hash) revert InvalidHash(k);
         }
       }
       {
-        uint8 t = uint8(headers[2 * k]);
+        uint8 t = uint8(proof[66 * k]);
         if (t == 1) {
           uint8 bit = uint8(path >> (bits - 1) & 0x1);
           assembly {
-            expected := mload(add(add(add(proof, 32), mul(k, 64)), mul(bit, 32)))
+            expected := mload(add(add(add(proof, 34), mul(k, 66)), mul(bit, 32)))
           }
           bits--;
         } else if (t == 2) {
           uint256 edgePath;
           assembly {
-            edgePath := mload(add(add(proof, 64), mul(k, 64)))
-            expected := mload(add(add(proof, 32), mul(k, 64)))
+            edgePath := mload(add(add(proof, 66), mul(k, 66)))
+            expected := mload(add(add(proof, 34), mul(k, 66)))
           }
-          bits = _checkPath(bits, uint8(headers[2 * k + 1]), edgePath, path);
+          bits = _checkPath(bits, uint8(proof[66 * k + 1]), edgePath, path);
         } else if (t == 4 || t == 8) {
           // TODO: ensure that state hash version is 0 ?
           // TODO: ensure that contract nonce is the right value ?
           // I do not think this is a security issue, since an attacker would still have
           // to come up with the right hash
           assembly {
-            expected := mload(add(add(proof, 32), mul(k, 64)))
+            expected := mload(add(add(proof, 34), mul(k, 66)))
           }
         } else if (t == 16) {
           // TODO: ensure that contract class hash and state root are valid ?
           if (bits != 0) revert IncompletePath(bits);
           assembly {
-            expected := mload(add(add(proof, 64), mul(k, 64)))
+            expected := mload(add(add(proof, 66), mul(k, 66)))
           }
           bits = 251;
           path = context.contractSlot;
