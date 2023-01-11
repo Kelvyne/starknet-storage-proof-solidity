@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "./EllipticCurve.sol";
 import "hardhat/console.sol";
 
-contract PedersenHash {
+contract PedersenHashNaive {
   uint256 private constant PRIME = 0x800000000000011000000000000000000000000000000000000000000000001;
 
   address[64] private table;
