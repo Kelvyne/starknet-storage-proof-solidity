@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./EllipticCurve.sol";
 import "hardhat/console.sol";
 
 contract StorageProof {
@@ -121,17 +120,14 @@ contract StorageProof {
           }
         }
         {
-          // Naive: in some cases we need to add length to the hash. Let's just recover the hash
-          // and compare like this for the moment
-          uint256 invZ = EllipticCurve.invMod(aZ, PRIME);
-          uint256 hash = mulmod(aX, invZ, PRIME);
-
+          uint256 hash = expected;
           // For edge nodes, we need to add the edgth path length to the hash before checking
-          // I'm sure there is a more efficient way to do this
           if (uint8(proof[66 * k]) == 2) {
-            hash = addmod(hash, uint8(proof[66 * k + 1]), PRIME);
+            // a - b % n = a + (n-b) % n
+            hash = addmod(hash, PRIME - uint8(proof[66 * k + 1]), PRIME);
           }
-          if (expected != hash) revert InvalidHash(k);
+          hash = mulmod(hash, aZ, PRIME);
+          if (aX != hash) revert InvalidHash(k);
         }
       }
       {
