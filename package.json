@@ -1,6 +1,6 @@
 {
   "name": "starknet-storage-proof-solidity",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "index.js",
   "license": "MIT",
   "files": [
