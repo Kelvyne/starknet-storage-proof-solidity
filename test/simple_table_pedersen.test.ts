@@ -5,6 +5,7 @@ import { expect } from "chai";
 import originalPedersen from "../lib/original_pedersen";
 import { pedersen as fastPedersen } from "../lib/fast";
 import { pedersen as tablesPedersen } from "../lib/tables";
+import { pedersen as shamirPedersen } from "../lib/shamir";
 import {
   pedersen as shiftedTablesPedersen,
   precomputes as shiftedPrecomputes,
@@ -137,7 +138,7 @@ describe("PedersenHash", () => {
   });
 
   describe("PedersenHash", () => {
-    describe("off chain", () => {
+    describe.only("off chain", () => {
       testCases.forEach((c) => {
         it(`${c.name}: shifted table implementation should match original implementation`, async () => {
           const o = originalPedersen([c.a, c.b]);
@@ -145,6 +146,8 @@ describe("PedersenHash", () => {
 
           const t = tablesPedersen(c.a, c.b);
           const s = shiftedTablesPedersen(c.a, c.b);
+
+          const ss = shamirPedersen(c.a, c.b);
 
           /*
           console.log(`o=${o}`);
@@ -157,6 +160,7 @@ describe("PedersenHash", () => {
           expect(f).to.equal(o, "fast");
           expect(t).to.equal(o, "tables");
           expect(s).to.equal(o, "shifted tables");
+          expect(ss).to.equal(o, "shamir tables");
         });
       });
     });
