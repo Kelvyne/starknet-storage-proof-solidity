@@ -5,11 +5,13 @@ import { expect } from "chai";
 import originalPedersen from "../lib/original_pedersen";
 import { pedersen as fastPedersen } from "../lib/fast";
 import { pedersen as tablesPedersen } from "../lib/tables";
-import { pedersen as shamirPedersen } from "../lib/shamir";
+import { pedersen as shamirPedersen, createShamirMul } from "../lib/shamir";
 import {
   pedersen as shiftedTablesPedersen,
   precomputes as shiftedPrecomputes,
 } from "../lib/shifted_tables";
+import { p0, p1, p2, p3 } from "../lib/stark";
+import PedersenHashZZArtifact from "../artifacts/contracts/PedersenHashZZ.sol/PedersenHashZZ.json"
 
 function chunk<T>(arr: T[], len: number): T[][] {
   const chunks: T[][] = [];
@@ -137,8 +139,31 @@ describe("PedersenHash", () => {
     });
   });
 
+  describe.only("PedersenHashZZ", () => {
+    let pedersenHashZZ: any;
+
+    beforeEach(async () => {
+      const shamir = createShamirMul(p0, p1, p2, p3);
+      const PedersenHashZZ = await ethers.getContractFactory("PedersenHashZZ");
+
+      const BundledPedersenHashZZ = shamir.bundleTable(PedersenHashZZ.interface, PedersenHashZZArtifact.deployedBytecode);
+
+      pedersenHashZZ = await BundledPedersenHashZZ.connect(PedersenHashZZ.signer).deploy();
+    });
+
+    testCases.forEach((c) => {
+      it(`${c.name}: shamir table implementation should match original implementation`, async () => {
+          const toHex = (c: any) => `0x${c}`;
+
+          const result = await pedersenHashZZ.hash(toHex(c.a), toHex(c.b));
+          await pedersenHashZZ.measure_hash(toHex(c.a), toHex(c.b));
+          //expect(result).to.equal(ethers.BigNumber.from(`0x${c.expected}`));
+      });
+    });
+  });
+
   describe("PedersenHash", () => {
-    describe.only("off chain", () => {
+    describe("off chain", () => {
       testCases.forEach((c) => {
         it(`${c.name}: shifted table implementation should match original implementation`, async () => {
           const o = originalPedersen([c.a, c.b]);
