@@ -5,18 +5,6 @@ import { expect } from "chai";
 import testCases from "./fixtures.json";
 import { precomputes as shiftedPrecomputes } from "../lib/shifted_tables";
 
-function chunk<T>(arr: T[], len: number): T[][] {
-  const chunks: T[][] = [];
-  let i = 0;
-  const n = arr.length;
-
-  while (i < n) {
-    chunks.push(arr.slice(i, (i += len)));
-  }
-
-  return chunks;
-}
-
 describe("PedersenHash", () => {
   let precomputedContracts: any[64];
 
@@ -99,5 +87,7 @@ describe("PedersenHash", () => {
     result.forEach((v: any, i: any) => {
       expect(v).to.equal(ethers.BigNumber.from(`0x${testCases[i].expected}`));
     });
+
+    await pedersenHash.measure_hash(input);
   });
 });

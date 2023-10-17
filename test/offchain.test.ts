@@ -21,13 +21,6 @@ describe("PedersenHash", () => {
 
         const ss = shamirPedersen(c.a, c.b);
 
-        /*
-          console.log(`o=${o}`);
-        console.log(`f=${f}`);
-        console.log(`t=${t}`);
-        console.log(`s=${s}`);
-        */
-
         expect(o).to.equal(c.expected, "original");
         expect(f).to.equal(o, "fast");
         expect(t).to.equal(o, "tables");

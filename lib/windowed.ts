@@ -15,7 +15,6 @@ export function precomputeForPoint(basePoint: any, w: number) {
   return new Array(tableSize)
     .fill(0)
     .map((_, i) => new BN(i))
-    .slice(1)
     .map((n) => basePoint.mul(n));
 }
 

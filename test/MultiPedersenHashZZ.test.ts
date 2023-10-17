@@ -3,19 +3,20 @@ import { expect } from "chai";
 import { pedersen as shamirPedersen, createShamirMul } from "../lib/shamir";
 import { p0, p1, p2, p3 } from "../lib/stark";
 import fixtures from "./fixtures.json";
+import { bundleTable } from "../lib/bundler";
 
 const testCases = fixtures;
 
 import MultiPedersenHashZZArtifact from "../artifacts/contracts/MultiPedersenHashZZ.sol/MultiPedersenHashZZ.json";
 
-describe.only("MultiPedersenHashZZ", () => {
+describe("MultiPedersenHashZZ", () => {
   let pedersenHashZZ: any;
 
   beforeEach(async () => {
     const shamir = createShamirMul(p0, p1, p2, p3);
     const MultiPedersenHashZZ = await ethers.getContractFactory("MultiPedersenHashZZ");
 
-    const BundledPedersenHashZZ = shamir.bundleTable(MultiPedersenHashZZ.interface, MultiPedersenHashZZArtifact.deployedBytecode);
+    const BundledPedersenHashZZ = bundleTable(MultiPedersenHashZZ.interface, MultiPedersenHashZZArtifact.deployedBytecode, shamir.precomputes);
 
     pedersenHashZZ = await BundledPedersenHashZZ.connect(MultiPedersenHashZZ.signer).deploy();
   });

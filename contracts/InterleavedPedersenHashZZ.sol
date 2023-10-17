@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
-contract MultiPedersenHashZZ {
+contract InterleavedPedersenHashZZ {
   // source: https://github.com/starkware-libs/cairo-lang/blob/master/src/starkware/crypto/signature/pedersen_params.json
   uint256 private constant p = 3618502788666131213697322783095070105623107215331596699973092056135872020481;
   uint256 private constant a = 1;
@@ -21,74 +21,64 @@ contract MultiPedersenHashZZ {
 
   constructor() {}
 
-  function computeBits(
-    uint256 aLow, uint256 aHigh,
-    uint256 bLow, uint256 bHigh,
-    uint256 i
-  ) private pure returns (uint256) {
-      uint256 offset = i - 124;
+  function computeBits(uint256 aLow, uint256 bLow, uint256 i) private pure returns (uint256) {
+      uint256 offset = i - 186;
       return ((aLow >> offset) & 1) |
-        ((aLow >> i) & 1) << 1 |
-        ((aHigh >> offset) & 1) << 2 |
-        ((aHigh >> i) & 1) << 3 |
-        ((bLow >> offset) & 1) << 4|
-        ((bLow >> i) & 1) << 5 |
-        ((bHigh >> offset) & 1) << 6 |
-        ((bHigh >> i) & 1) << 7;
+        ((aLow >> (offset + 62)) & 1) << 1 |
+        ((aLow >> (offset + 124)) & 1) << 2 |
+        ((aLow >> (offset + 186)) & 1) << 3 |
+        ((bLow >> offset) & 1) << 4 |
+        ((bLow >> (offset + 62)) & 1) << 5 |
+        ((bLow >> (offset + 124)) & 1) << 6 |
+        ((bLow >> (offset + 186)) & 1) << 7;
   }
 
   // h(a, b) = [shift_point + low(a) * P0 + high(a) * P1 + low(b) * P2 + high(b) * P3].x
-  function hash(bytes calldata input) public view returns (uint256[] memory output) {
-    uint256 inputLen = input.length;
-    uint256 n = inputLen / 64;
-    output = new uint256[](n);
+  function hash(uint256 a, uint256 b) public view returns (uint256) {
+    require(a < p, "a");
+    require(b < p, "b");
 
-    uint256 x; uint256 y; uint256 z; uint256 zz;
-    uint256[2] memory ab;
-    for (uint256 j = 0; j < n; ++j) {
+    uint256[3] memory p; // [tempX;tempY;p1p3]
+    uint256 aLow = a & LOW_MASK;
+    uint256 bLow = b & LOW_MASK;
+
+    // P0 * low(a) + P2 * low(b)
+    (uint256 x, uint256 y, uint256 z, uint256 zz) = (0, 0, 1, 1);
+    for (uint256 i = 247; i >= 186; --i) {
+      uint256 bits = computeBits(aLow, bLow, i);
+
+      (x, y, z, zz) = ecZZ_Dbl(x, y, z, zz);
       assembly {
-        calldatacopy(ab, add(input.offset, mul(64, j)), 64)
-      }
-      require(ab[0] < p, "a");
-      require(ab[1] < p, "b");
+        let pOffset := add(
+          sub(codesize(), 16384),
+          mul(bits, 64)
+        )
 
-      (x, y, z, zz) = (0, 0, 1, 1);
-      for (uint256 i = 247; i >= 124; --i) {
-        assembly {
-          calldatacopy(ab, add(input.offset, mul(64, j)), 64)
-        }
-        uint256 bits = computeBits(
-          ab[0] & LOW_MASK,
-          ab[0] >> 248,
-          ab[1] & LOW_MASK,
-          ab[1] >> 248,
-          i
-        );
-
-        (x, y, z, zz) = ecZZ_Dbl(x, y, z, zz);
-        assembly {
-          let pOffset := add(
-            sub(codesize(), 16384),
-            mul(bits, 64)
-          )
-
-          codecopy(ab, pOffset, 64)
-        }
-
-        (x, y, z, zz) = ecZZ_AddN(x, y, z, zz, ab[0], ab[1]);
+        codecopy(p, pOffset, 64)
       }
 
-      (x, y, z, zz) = ecZZ_AddN(x, y, z, zz, SHIFT_X, SHIFT_Y);
-      (output[j],) = ecZZ_SetAff(x, y, z, zz);
+      (x, y, z, zz) = ecZZ_AddN(x, y, z, zz, p[0], p[1]);
     }
-    return output;
+    assembly {
+      codecopy(add(p, 76), sub(codesize(), 16404), 20)
+    }
+
+    // P1 * high(a) + P3 * high(b) + shift_point
+    uint256 offset = (((a >> 244) & 0xf0) | (b >> 248)) * 64;
+    assembly {
+      extcodecopy(mload(add(p, 64)), p, offset, 64)
+    }
+
+    (x, y, z, zz) = ecZZ_AddN(x, y, z, zz, p[0], p[1]);
+    (x, y) = ecZZ_SetAff(x, y, z, zz);
+    return x;
   }
 
   event MeasureHash(uint256 indexed hash);
 
-  function measure_hash(bytes calldata input) public {
-    uint256[] memory hash = hash(input);
-    emit MeasureHash(hash[0]);
+  function measure_hash(uint256 a, uint256 b) public {
+    uint256 hash = hash(a, b);
+    emit MeasureHash(hash);
   }
 
   function ecZZ_Dbl(

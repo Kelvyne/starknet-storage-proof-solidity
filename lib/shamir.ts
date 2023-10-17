@@ -4,6 +4,7 @@ import { starkEc, shiftPoint, p0, p1, p2, p3, LOW_PART_BITS } from './stark';
 
 const MASK = new BN(2).pow(new BN(LOW_PART_BITS)).sub(new BN(1));
 const _2e124 = new BN(2).pow(new BN(124));
+const _2e62 = new BN(2).pow(new BN(62));
 const _1 = new BN(1);
 
 const toHex = (c: any) => `0x${c}`;
@@ -19,6 +20,27 @@ const encodePoints = (points: any[]) => {
   );
 }
 
+export function createShamirMul2(p0: any, p1: any) {
+  const powers = new Array(8);
+  powers[0] = p0;
+  powers[1] = powers[0].mul(_2e62);
+  powers[2] = powers[1].mul(_2e62);
+  powers[3] = powers[2].mul(_2e62);
+  powers[4] = p1;
+  powers[5] = powers[4].mul(_2e62);
+  powers[6] = powers[5].mul(_2e62);
+  powers[7] = powers[6].mul(_2e62);
+
+  const precomputes = new Array(256).fill(0).map((_, i) => {
+    let r = starkEc.curve.point(null, null);
+    for (let bit = 0; bit < 8; ++bit) {
+      if ((i >> bit) & 1) r = r.add(powers[bit]);
+    }
+    return r;
+  });
+
+  return { precomputes };
+}
 
 export function createShamirMul(
   p0: any, 
@@ -76,23 +98,6 @@ export function createShamirMul(
       }
       return r.add(shiftPoint).getX().toString(16);
     },
-    bundleTable (iface: any, originalBytecode: string) {
-      originalBytecode = originalBytecode.slice(2);
-      const dbLen = Buffer.from(originalBytecode, "hex").length;
-      // replace contract constructor by our crafted one
-      const ctor =
-        "608060405234801561001057600080fd5b5061abcd806100206000396000f300";
-
-      const encodedPoints = encodePoints(precomputes).slice(2);
-
-
-      const finalDeployedBytecode = originalBytecode + encodedPoints;
-      const finalLen = Buffer.from(finalDeployedBytecode, "hex").length;
-
-      const bytecode = ctor.replace("abcd", finalLen.toString(16).padStart(4, "0")) + finalDeployedBytecode;
-
-      return new ethers.ContractFactory(iface, bytecode);
-    }
   };
 }
 

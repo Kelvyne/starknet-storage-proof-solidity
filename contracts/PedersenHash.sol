@@ -13,7 +13,14 @@ contract PedersenHash {
     table = _table;
   }
 
-  function hash(bytes memory input) external view returns (uint256[] memory output) {
+  event MeasureHash(uint256 indexed hash);
+
+  function measure_hash(bytes calldata input) public {
+    uint256[] memory hash = hash(input);
+    emit MeasureHash(hash[0]);
+  }
+
+  function hash(bytes memory input) public view returns (uint256[] memory output) {
     uint256 inputLen = input.length;
     uint256 n = inputLen / 64;
     uint256 rowSize = inputLen / 32;
