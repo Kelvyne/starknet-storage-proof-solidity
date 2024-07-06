@@ -1,6 +1,7 @@
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 import { pedersen } from "../lib/shifted_tables";
-import { prime } from "../lib/stark";
+import { prime } from "../lib/stark";
+import { reverseBitsToPath } from "./format_new_to_old";
 
 const { BigNumber } = ethers;
 
@@ -10,12 +11,12 @@ type Binary = {
   kind: "Binary";
   left_hash: string;
   right_hash: string;
-}
+};
 
 type Edge = {
   kind: "Edge";
   path: {
-    head: number;
+    // head: number;
     bits: number;
     data: number[];
   };
@@ -64,18 +65,36 @@ function _parseProof(proof: _Node[]): Node[] {
     if (proofAny.Edge) {
       return {
         kind: "Edge",
-        ...(proofAny.Edge as Omit<Edge, "kind">)
+        ...(proofAny.Edge as Omit<Edge, "kind">),
       };
+    } else if (proofAny.edge) {
+      // new format
+      const edge: Edge = {
+        kind: "Edge",
+        child_hash: proofAny.edge.child,
+        path: reverseBitsToPath(
+          BigNumber.from(proofAny.edge.path.value),
+          proofAny.edge.path.len
+        ),
+      };
+      return edge;
     } else if (proofAny.Binary) {
       return {
         kind: "Binary",
-        ...(proofAny.Binary as Omit<Binary, "kind">)
+        ...(proofAny.Binary as Omit<Binary, "kind">),
       };
+    } else if (proofAny.binary) {
+      // new format
+      const binary: Binary = {
+        kind: "Binary",
+        left_hash: proofAny.binary.left,
+        right_hash: proofAny.binary.right,
+      };
+      return binary;
     } else {
       throw Error("invalid proof format");
     }
   });
-
 }
 
 export enum NodeType {
@@ -90,12 +109,12 @@ export enum NodeType {
 export type EncodeOptions = {
   hashVersion?: number;
   contractNonce?: number;
-}
+};
 
 export type EncodedNode = {
   proof: string;
   header: string;
-}
+};
 
 export function encodeProof(
   contractRoot: string,
@@ -128,7 +147,7 @@ export function encodeProof(
     _encodeNode(NodeType.ContractNonceHash, 0, [contractHash, contractNonce]),
     _encodeNode(NodeType.ContractHash, 0, [contractClassHash, contractRoot]),
     ...storage,
-  ].map(encoded => encoded.header + encoded.proof.slice(2));
+  ].map((encoded) => encoded.header + encoded.proof.slice(2));
 }
 
 function _encodeTree(nodes: Node[]): EncodedNode[] {
@@ -197,7 +216,7 @@ export default function verifyProof(
           `computed=${computed.toHexString()}`,
           `expected=${expected.toHexString()}`
         );
-        */
+*/
         if (!computed.eq(expected)) {
           throw new Error("invalid binary node hash");
         }

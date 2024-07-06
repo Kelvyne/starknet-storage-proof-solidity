@@ -4,6 +4,7 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import proof from "../data/proof.json";
 import proof2 from "../data/proof2.json";
+import proof3 from "../data/proof3.json";
 import verifyProof, { encodeProof } from "../lib/verify_proof";
 import { pedersen } from "../lib/shifted_tables";
 
@@ -27,6 +28,15 @@ const testCases = [
     storageValue:
       "0x6dd91e3d3dbb267fe05745d84ff9e3193a3cb9cb08c1a820a6d02e4791e9da1",
     ...proof2,
+  },
+  {
+    contractAddress:
+      "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+    root: "0x05e8ad563e1695ae93f5aa831cece69e8b8c9357cb43a203be7b057c6c532093",
+    storageSlot:
+      "0x2c401056f9582175d3219f1ac8f974b7960f2edfc8bc03197718dc8967ba1ab",
+    storageValue: "0x4ee9c11468906",
+    ...proof3,
   },
 ];
 
@@ -76,8 +86,7 @@ describe("VerifyProof", () => {
           storageProof
         );
 
-        const encodedProof =
-          "0x" + encoded.map((v) => v.slice(2)).join("");
+        const encodedProof = "0x" + encoded.map((v) => v.slice(2)).join("");
 
         const context = {
           stateRoot: root,
